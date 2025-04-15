@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RANDOM GAME GUESS</title>
+    <link rel="stylesheet" href="proj10.css">
+</head>
+<body>
+     <!-- RANDOM GAME -->
+     <div class="cols">
+        <h1>Random Game Guess</h1>
+  
+        <button onclick="playerCheck('1')">check 1</button>
+        <h2>Player 1: <span id="playerOneResult">0</span></h2>
+  
+        <button onclick="playerCheck('2')">check 2</button>
+        <h2>Player 2: <span id="playerTwoResult">0</span></h2>
+  
+        <p>Active player: <span id="activePlayer">1</span></p>
+  
+        <input type="number" id="inputNumber" />
+        <button onclick="doCheck()">Check</button>
+  
+        <h2 id="randomResult">-</h2>
+      </div>
+
+    <script>
+      const inputNumber = document.getElementById("inputNumber");
+      let randomResult = document.getElementById("randomResult");
+      let activePlayer = document.getElementById("activePlayer");
+
+      let playerOneResult = document.getElementById("playerOneResult");
+      let playerTwoResult = document.getElementById("playerTwoResult");
+
+      function doCheck() {
+        if (inputNumber.value) {
+          const inputNumberValue = inputNumber.value;
+          const randomNumber = Math.floor(Math.random() * 5) + 1;
+
+          const activePlayerValue = Number(activePlayer.innerHTML);
+          randomResult.innerHTML = randomNumber;
+
+          if (Number(inputNumberValue) === randomNumber) {
+            if (activePlayerValue === 1) {
+              playerOneResult.innerHTML = Number(playerOneResult.innerHTML) + 1;
+            }
+
+            if (activePlayerValue === 2) {
+              playerTwoResult.innerHTML = Number(playerTwoResult.innerHTML) + 1;
+            }
+          }
+        } else {
+          alert("Enter a number to play");
+        }
+      }
+
+      function playerCheck(playerNumber) {
+        activePlayer.innerHTML = playerNumber;
+      }
+    </script>
+
+</body>
+</html>
