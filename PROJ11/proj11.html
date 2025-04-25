@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="proj11.css">
+</head>
+<body>
+    <div id="toDoList">
+        <h3>To-Do List</h3>
+        <input type="text" id="taskInput" placeholder="Document a Task" />
+        <button onclick="addTask()">Add</button>
+        <ul id="taskList"></ul>
+    </div>
+    
+    <script>
+        // JavaScript code for handling the to-do list
+        function addTask() {
+        const taskInput = document.getElementById("taskInput");
+        const taskList = document.getElementById("taskList");
+    
+        if (taskInput.value.trim() === "") {
+            alert("Please enter a task!");
+            return;
+        }
+    
+        // Create a new list item
+        const listItem = document.createElement("li");
+    
+        // Add checkbox
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+    
+        // Add task text
+        const taskText = document.createElement("span");
+        taskText.textContent = taskInput.value;
+    
+        // Add delete button
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.onclick = function () {
+            taskList.removeChild(listItem);
+        };
+    
+        // Append elements
+        listItem.appendChild(checkbox);
+        listItem.appendChild(taskText);
+        listItem.appendChild(deleteButton);
+        taskList.appendChild(listItem);
+    
+        // Clear input field
+        taskInput.value = "";
+        }
+    </script>
+</body>
+</html>
