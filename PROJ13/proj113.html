@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="proj13.css">
+</head>
+<body>
+    <h2>TO DO LIST</h2>
+    <input type="text" id="taskInput" placeholder="Enter Your Task">
+    <button onclick="addTask()">Add</button>
+    <ul id="taskList"></ul>
+<script>
+
+    // JavaScript code for handling the to-do list
+
+  function addTask() {
+    const input = document.getElementById("taskInput");
+    const text = input.value.trim();
+    if (text === "") {
+      alert("put in a task!")
+      return;
+
+    }
+
+    // Create a new list item
+
+    const li = document.createElement("li");  
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+
+    const taskInput = document.createElement("input");
+    taskInput.type = "text";
+
+    taskInput.className = "task-text";
+    taskInput.value = text;
+
+    // Toggle editable based on checked
+
+    checkbox.onchange = () => {
+      li.classList.toggle("checked");
+      taskInput.readOnly = checkbox.checked;
+      
+      // if (checkbox.checked) {
+      //   taskInput.style.textDecoration = "dashed";
+      // }else {
+      //   taskInput.style.textDecoration = "none";
+      // }
+    };
+
+    // Add delete button
+
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "Delete";
+    delBtn.className = "delete-btn";
+    delBtn.onclick = () => li.remove();
+
+    // Append elements
+
+    li.appendChild(checkbox);
+    li.appendChild(taskInput);
+    li.appendChild(delBtn);
+
+    document.getElementById("taskList").appendChild(li);
+
+    // Clear input field
+    input.value = "";
+  }
+</script>
+</body>
+</html>
