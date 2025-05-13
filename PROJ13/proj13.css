@@ -27,9 +27,10 @@ ul {
   padding: 0;
 }
 li {
-  width: 100%;
+  width: 70%;
   background: #aaa;
   padding: 10px;
+  justify-content: center;
   margin: 5px 0;
   border-radius: 8px;
   display: flex;
