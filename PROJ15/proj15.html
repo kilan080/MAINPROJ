@@ -1,0 +1,88 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>localStorage TO-DO</title>
+    <link rel="stylesheet" href="proj15.css">
+</head>
+<body>
+    <input type="text" id="taskInput" placeholder="Enter Your Task">
+    <button onclick="addTask()">ADD TASK</button>
+    <ul id="taskList"></ul>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', loadTasks);
+        
+        // Function to add a task
+        function addTask() {
+            const input = document.getElementById("taskInput");
+            const text = input.value.trim();
+        
+            if (text === "") {
+                alert("Put in a task!");
+                return;
+            }
+        
+            let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            tasks.push(text);
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        
+            input.value = "";
+            loadTasks(); // Reload tasks
+        }
+        
+        // Function to load tasks from localStorage
+        function loadTasks() {
+    const taskList = document.getElementById("taskList");
+    taskList.innerHTML = "";
+
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    tasks.forEach((task, index) => {
+        const li = document.createElement("li");
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+
+        const taskInput = document.createElement("input");
+        taskInput.type = "text";
+        taskInput.className = "task-text";
+        taskInput.value = task;
+        taskInput.readOnly = true;
+
+        // 🔥 **Add Line-Through Effect on Checkbox Click**
+        checkbox.onchange = () => {
+            if (checkbox.checked) {
+                taskInput.style.textDecoration = "line-through";
+                taskInput.style.color = "gray";
+                taskInput.readOnly = true;  // Make input non-editable
+            } else {
+                taskInput.style.textDecoration = "none";
+                taskInput.style.color = "black";
+                taskInput.readOnly = false; // Make input editable again
+            }
+        };
+
+        const delBtn = document.createElement("button");
+        delBtn.textContent = "Delete";
+        delBtn.className = "delete-btn";
+        delBtn.onclick = () => removeTask(index);
+
+        li.appendChild(checkbox);
+        li.appendChild(taskInput);
+        li.appendChild(delBtn);
+        taskList.appendChild(li);
+        });
+    }
+        
+        // Function to remove a task
+        function removeTask(index) {
+            let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            tasks.splice(index, 1);
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+            loadTasks();
+        }
+        </script>
+</body>
+</html>
